@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Theme } from '../../CommonStyles';
 
 export const AlbumItem = (props) => {
   const { item, onPress } = props;
@@ -13,38 +14,44 @@ export const AlbumItem = (props) => {
   } = item;
 
   return (
-    <TouchableOpacity
-      style={{
-        flexDirection: 'row',
-        padding: 5,
-        margin: 5,
-        marginBottom: 0,
-        backgroundColor: 'white',
-      }}
-      onPress={onPress}
-    >
+    <TouchableOpacity style={styles.container} onPress={onPress}>
       <Image
-        style={{ width: 50, height: 50, alignItems: 'center' }}
+        style={styles.albumImgStyle}
         source={{
           uri: artworkUrl60,
         }}
       />
-      <View
-        style={{
-          justifyContent: 'center',
-          marginLeft: 10,
-          alignItems: 'center',
-          flexDirection: 'row',
-          flex: 1,
-        }}
-      >
+      <View style={styles.textContainer}>
         <View style={{ flex: 1 }}>
-          <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{trackName}</Text>
-          <Text style={{ fontSize: 12 }}>{collectionName}</Text>
-          <Text style={{ fontSize: 10 }}>{artistName}</Text>
+          <Text style={styles.trackTxtStyle}>{trackName}</Text>
+          <Text style={styles.collectionNameStyle}>{collectionName}</Text>
+          <Text style={styles.artistNameStyle}>{artistName}</Text>
         </View>
-        <AntDesign name='right' size={10} color='black' />
+        <AntDesign name='right' size={10} color='white' />
       </View>
     </TouchableOpacity>
   );
 };
+
+
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    padding: 5,
+    margin: 5,
+    marginBottom: 0,
+    backgroundColor: Theme.SECONDARY_ACCENT,
+  },
+  textContainer: {
+    justifyContent: 'center',
+    marginLeft: 10,
+    alignItems: 'center',
+    flexDirection: 'row',
+    flex: 1,
+  },
+  trackTxtStyle: { fontSize: 16, fontWeight: 'bold', color: 'white' },
+  albumImgStyle: { width: 50, height: 50, alignItems: 'center' },
+  collectionNameStyle: { fontSize: 12, color: 'white' },
+  artistNameStyle: { fontSize: 10, color: 'white' },
+});
